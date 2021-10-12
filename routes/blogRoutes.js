@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
+const redis = require('redis');
+const util = require('util');
+
+const redisUrl = 'redis://127.0.0.1:6379';
 
 const Blog = mongoose.model('Blog');
 
@@ -13,8 +17,9 @@ module.exports = app => {
     res.send(blog);
   });
 
+  // NISH ADDING REDIS CACHE
   app.get('/api/blogs', requireLogin, async (req, res) => {
-    const blogs = await Blog.find({ _user: req.user.id });
+    const blogs = await Blog.find({ _user: req.user.id }).cache();
 
     res.send(blogs);
   });
