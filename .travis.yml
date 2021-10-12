@@ -1,23 +1,20 @@
 language: node_js
 node_js:
     - "12.8.1"
-dist: trusty # OS that our CI server must use
+dist: trusty
 services:
     - mongodb
     - redis-server
 env:
-    # Environment vars
-    - NODE_ENV=ci PORT=3000 YARN_GPG=no # Adding them on separate lines causes separate builds, yarn_gpg to finish builds
-cache: # For node_modules (So that it is just copied and not installed everytime)
+    - NODE_ENV=ci PORT=3000 YARN_GPG=no
+cache:
     directories:
         - node_modules
         - client/node_modules
 install:
     - npm install
-    - npm run build # For building the React app (like ng build prod, check package.json)
+    - npm run build
 script:
     - nohup npm run start &
-    # Nohup makes sure that the process stays alive even if shell is closed
-    # & makes sure that the terminal isnt busy with just one process (try it on your terminal)
-    - sleep 3 # Gives 3 seconds time for the server to start up so that the tests dont hurry up and start
+    - sleep 3
     - npm run test
