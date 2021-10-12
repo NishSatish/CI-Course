@@ -7,7 +7,7 @@ services:
     - redis-server
 env:
     # Environment vars
-    - NODE_ENV=ci PORT=3000 # Adding them on separate lines causes separate builds
+    - NODE_ENV=ci PORT=3000 YARN_GPG=no # Adding them on separate lines causes separate builds, yarn_gpg to finish builds
 cache: # For node_modules (So that it is just copied and not installed everytime)
     directories:
         - node_modules
