@@ -23,7 +23,6 @@ mongoose.Query.prototype.exec = async function () {
     // 'this' refers to the object calling this whole function. Like 'Blog' or 'User'
     if (!this.useCache) {
         // RUNNING THE ORIGINAL EXEC FUNCTION THAT WE HAVE NOT TOUCHED (BECAUSE CACHE IS OFF)
-        console.log("NOT SERVING FROM CACHE");
         return exec.apply(this, arguments);
     }
 
